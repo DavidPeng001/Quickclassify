@@ -1,4 +1,10 @@
 Attribute VB_Name = "Pub"
+Public IsMusic As Boolean
+Public IsAudio As Boolean
+Public IsFile As Boolean
+Public IsPicture As Boolean
+
+
 Declare Function SHGetPathFromIDList _
         Lib "shell32.dll" _
         Alias "SHGetPathFromIDListA" (ByVal pidl As Long, _

@@ -2,9 +2,9 @@ VERSION 5.00
 Begin VB.Form FrmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "文件夹一键整理"
-   ClientHeight    =   5415
-   ClientLeft      =   45
-   ClientTop       =   375
+   ClientHeight    =   4920
+   ClientLeft      =   9030
+   ClientTop       =   3795
    ClientWidth     =   6465
    BeginProperty Font 
       Name            =   "Tahoma"
@@ -18,19 +18,34 @@ Begin VB.Form FrmMain
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5415
+   ScaleHeight     =   4920
    ScaleWidth      =   6465
-   StartUpPosition =   3  '窗口缺省
-   Begin VB.CommandButton CmdOk 
+   Begin VB.CommandButton CmdSetting 
+      Caption         =   "自定义清理"
+      Height          =   615
+      Left            =   4200
+      TabIndex        =   6
+      Top             =   4080
+      Width           =   2055
+   End
+   Begin VB.CommandButton CmdStart 
+      Caption         =   "一键清理"
+      Height          =   615
+      Left            =   2160
+      TabIndex        =   5
+      Top             =   4080
+      Width           =   1815
+   End
+   Begin VB.CommandButton CmdSearch 
       Caption         =   "搜索"
       Height          =   600
       Left            =   240
       TabIndex        =   3
       Top             =   4080
-      Width           =   1590
+      Width           =   1815
    End
    Begin VB.ListBox List 
-      Height          =   2595
+      Height          =   2790
       Left            =   240
       TabIndex        =   2
       Top             =   1080
@@ -70,7 +85,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 
 
-Private Sub CmdOk_Click()
+Private Sub CmdSearch_Click()
 
     If Trim$(TxtDir) = "" Then
         MsgBox "请选择要整理的文件夹", vbInformation, "提示"
@@ -82,7 +97,7 @@ Private Sub CmdOk_Click()
         TxtDir = ""
         Exit Sub
     End If
-
+    
     
     Call ListFile
     
@@ -91,7 +106,7 @@ End Sub
 Private Sub ListFile()
     Dim strPath As String
     
-    CmdOk.Enabled = False
+    CmdSearch.Enabled = False
     CmdOpen.Enabled = False
     LblTips.Visible = True
     
@@ -108,7 +123,7 @@ Private Sub ListFile()
     Next
     
     LblTips = "搜索完毕，结果如下："
-    CmdOk.Enabled = True
+    CmdSearch.Enabled = True
     CmdOpen.Enabled = True
     Exit Sub
 ErrHandler:                             '用户按“取消”按钮。
@@ -119,3 +134,27 @@ Private Sub CmdOpen_Click()
     TxtDir = GetDirectory
 End Sub
 
+Private Sub CmdStart_Click()
+    IsMusic = True
+    IsAudio = True
+    'To do:remove space
+    
+    Dim strFormat As String
+    Dim intLen As Integer
+    Dim intFolder As Integer
+    Dim strFile As String
+    
+    intFolder = Len(TextDir)
+    
+    For Each x In List.List() 'Error
+        strFormat = Right(x, 3)
+        intLen = Len(x)
+        strFile = Right(x, intLen - intFolder - 1)
+        If (strFormat = "mp3" Or strFormat = "mav") And IsMusic = True Then
+                        
+            Name x As (TextDir + "\Music\" + strFile)
+            
+        End If
+            
+
+End Sub
