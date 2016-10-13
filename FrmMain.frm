@@ -118,7 +118,8 @@ Private Sub ListFile()
     List.Clear
  
     For Each f In folder_a.Files
-            List.AddItem f & "     " & f.DateCreated
+            List.AddItem f & "   "
+            '"" & f.DateCreated
         
     Next
     
@@ -137,24 +138,30 @@ End Sub
 Private Sub CmdStart_Click()
     IsMusic = True
     IsAudio = True
+    IsFile = True
+    
     'To do:remove space
     
     Dim strFormat As String
     Dim intLen As Integer
     Dim intFolder As Integer
     Dim strFile As String
+    TxtDir = Trim$(TxtDir)
+    intFolder = Len(TxtDir.Text)
     
-    intFolder = Len(TextDir)
-    
-    For Each x In List.List() 'Error
-        strFormat = Right(x, 3)
-        intLen = Len(x)
-        strFile = Right(x, intLen - intFolder - 1)
+    For n = 0 To List.ListCount Step 1
+        List.List(n) = Trim$(List.List(n))
+        strFormat = Right(List.List(n), 3)
+        intLen = Len(List.List(n))
+        strFile = Right(List.List(n), intLen - intFolder - 1)
         If (strFormat = "mp3" Or strFormat = "mav") And IsMusic = True Then
                         
-            Name x As (TextDir + "\Music\" + strFile)
+           ' Name List.List(n) As (TxtDir + "\Music\" + strFile)
+        ElseIf (strFormat = "txt") And IsMusic = True Then
+            
+            Name List.List(n) As (TxtDir + "\File\" + strFile)
             
         End If
-            
+    Next n
 
 End Sub
