@@ -149,16 +149,22 @@ Private Sub CmdStart_Click()
     TxtDir = Trim$(TxtDir)
     intFolder = Len(TxtDir.Text)
     
-    For n = 0 To List.ListCount Step 1
+    For n = 0 To List.ListCount - 1 Step 1
         List.List(n) = Trim$(List.List(n))
         strFormat = Right(List.List(n), 3)
         intLen = Len(List.List(n))
         strFile = Right(List.List(n), intLen - intFolder - 1)
+        
         If (strFormat = "mp3" Or strFormat = "mav") And IsMusic = True Then
-                        
-           ' Name List.List(n) As (TxtDir + "\Music\" + strFile)
-        ElseIf (strFormat = "txt") And IsMusic = True Then
+            If Dir(TxtDir + "\Music\", vbDirectory) = "" Then
+                 MkDir (TxtDir + "\Music\")
+            End If
+            Name List.List(n) As (TxtDir + "\Music\" + strFile)
             
+        ElseIf (strFormat = "txt") And IsMusic = True Then
+              If Dir(TxtDir + "\File\", vbDirectory) = "" Then
+                 MkDir (TxtDir + "\File\")
+            End If
             Name List.List(n) As (TxtDir + "\File\" + strFile)
             
         End If
