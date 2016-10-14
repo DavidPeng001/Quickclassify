@@ -139,8 +139,9 @@ Private Sub CmdStart_Click()
     IsMusic = True
     IsAudio = True
     IsFile = True
+    IsPicture = True
     
-    'To do:remove space
+    
     
     Dim strFormat As String
     Dim intLen As Integer
@@ -155,17 +156,29 @@ Private Sub CmdStart_Click()
         intLen = Len(List.List(n))
         strFile = Right(List.List(n), intLen - intFolder - 1)
         
-        If (strFormat = "mp3" Or strFormat = "mav") And IsMusic = True Then
+        If (strFormat = "mp3" Or strFormat = "mav" Or strFormat = "acc" Or strFormat = "lac" Or strFormat = "wma" Or strFormat = "m4a") And IsMusic = True Then
             If Dir(TxtDir + "\Music\", vbDirectory) = "" Then
                  MkDir (TxtDir + "\Music\")
             End If
             Name List.List(n) As (TxtDir + "\Music\" + strFile)
             
-        ElseIf (strFormat = "txt") And IsMusic = True Then
-              If Dir(TxtDir + "\File\", vbDirectory) = "" Then
+        ElseIf (strFormat = "txt" Or strFormat = "doc" Or strFormat = "ocx" Or strFormat = "wps" Or strFormat = "ppt" Or strFormat = "pps" Or strFormat = "xls") And IsMusic = True Then
+            If Dir(TxtDir + "\File\", vbDirectory) = "" Then
                  MkDir (TxtDir + "\File\")
             End If
             Name List.List(n) As (TxtDir + "\File\" + strFile)
+            
+        ElseIf (strFormat = "mp4" Or strFormat = "mkv" Or strFormat = "mvb" Or strFormat = "flv" Or strFormat = "mpg" Or strFormat = "mov" Or strFormat = "mob") And IsMusic = True Then
+            If Dir(TxtDir + "\Audio\", vbDirectory) = "" Then
+                 MkDir (TxtDir + "\Audio\")
+            End If
+            Name List.List(n) As (TxtDir + "\Audio\" + strFile)
+            
+        ElseIf (strFormat = "jpg" Or strFormat = "png" Or strFormat = "gif" Or strFormat = "bmp" Or strFormat = "ico") And IsMusic = True Then
+            If Dir(TxtDir + "\Picture\", vbDirectory) = "" Then
+                 MkDir (TxtDir + "\Picture\")
+            End If
+            Name List.List(n) As (TxtDir + "\Picture\" + strFile)
             
         End If
     Next n
