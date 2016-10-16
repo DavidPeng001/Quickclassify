@@ -2,14 +2,13 @@ VERSION 5.00
 Begin VB.Form FrmSetting 
    Caption         =   "自定义整理"
    ClientHeight    =   2565
-   ClientLeft      =   120
-   ClientTop       =   465
+   ClientLeft      =   8775
+   ClientTop       =   4350
    ClientWidth     =   3945
    LinkTopic       =   "Form1"
    LockControls    =   -1  'True
    ScaleHeight     =   2565
    ScaleWidth      =   3945
-   StartUpPosition =   3  '窗口缺省
    Begin VB.CommandButton CmdNext 
       Caption         =   "继续"
       Height          =   375
@@ -103,4 +102,7 @@ Private Sub CmdNext_Click()
         FrmMain.CmdStart.Enabled = False
         FrmMain.CmdSetting.Enabled = False
     End If
+    
+    FrmMain.Show
+    Unload Me
 End Sub
